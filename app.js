@@ -38,6 +38,20 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req,res,next){
+  var tiempoActual = new Date().getTime();
+  if(req.session.tiempo){
+    var resta = tiempoActual - req.session.tiempo;
+    if(resta>120000){
+      delete req.session.tiempo;
+      res.redirect("/logout");
+    } else{
+      req.session.tiempo = tiempoActual;
+    }
+  }
+  next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
