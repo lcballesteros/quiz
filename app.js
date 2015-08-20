@@ -45,8 +45,7 @@ app.use(function(req,res,next){
     if(resta>120000){
       delete req.session.tiempo;
       res.redirect("/logout");
-    } else{
-      req.session.tiempo = tiempoActual;
+      return;
     }
   }
   next();
